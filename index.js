@@ -4,7 +4,9 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const { Config } = require('./src/config/index');
 const { ClientesAPI } = require('./src/routes/clientes/index')
-const { EmpleadosAPI } = require('./src/routes/empleados/index')
+const { EmpleadosAPI } = require('./src/routes/empleados/index');
+const { PropiedadesAPI } = require('./src/routes/propiedades');
+
 
 const app = express();
 
@@ -14,6 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 ClientesAPI(app);
 EmpleadosAPI(app);
+PropiedadesAPI(app)
 
 
 app.listen(Config.port, ()=> {
