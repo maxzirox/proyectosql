@@ -20,8 +20,8 @@ module.exports.EmpleadosController = {
     
     obtenerPorRut: async (req, res) => {
         try {
-            const { params: { rut }, } = req;
-            const empleado = await EmpleadosServices.obtenerRut(rut)
+            const { params: { rut, verificador }, } = req;
+            const empleado = await EmpleadosServices.obtenerRut(rut, verificador)
             Response.succes(res, 200, 'Lista de Empleados', empleado)
             
         } catch (error) {

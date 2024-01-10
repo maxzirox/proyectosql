@@ -16,7 +16,7 @@ const obtenerTodos = () => {
 
 const obtenerNumPropiedad = (nro_propiedad) => {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM propiedad WHERE nro_propiedad = ${nro_propiedad}`, (error, results) => {
+        connection.query(`SELECT * FROM propiedad WHERE nro_propiedad = ?`, [nro_propiedad], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta:', error);
                 reject(error);
@@ -30,7 +30,7 @@ const obtenerNumPropiedad = (nro_propiedad) => {
 const agregarPropiedad = (propiedad) => {
     return new Promise((resolve, reject) => {
         //console.log('cliente desde services: ', cliente)
-        connection.query('INSERT INTO propiedad SET ?', propiedad, (error, results) => {
+        connection.query('INSERT INTO propiedad SET ?', [propiedad], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta:', error);
                 reject(error);

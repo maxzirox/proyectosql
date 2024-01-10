@@ -14,9 +14,10 @@ const obtenerTodos = () => {
     });
 };
 
-const obtenerRut = (rut) => {
+const obtenerRut = (rut, digito) => {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM empleado WHERE numrut_emp = ${rut}`, (error, results) => {
+        const query = 'SELECT * FROM empleado WHERE numrut_emp = ? AND dvrut_emp = ?'
+        connection.query(query, [rut, digito], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta:', error);
                 reject(error);
@@ -29,8 +30,7 @@ const obtenerRut = (rut) => {
 
 const agregarEmpleado = (empleado) => {
     return new Promise((resolve, reject) => {
-        //console.log('empleado desde services: ', empleado)
-        connection.query('INSERT INTO empleado SET ?', empleado, (error, results) => {
+        connection.query('INSERT INTO empleado SET ?', [empleado], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta:', error);
                 reject(error);
@@ -58,10 +58,10 @@ const modificarEmpleado = (rut, empleado) => {
     });
 };
 
-const eliminarEmpleado = (rut) => {
+const eliminarEmpleado = (rut, verificador) => {
     return new Promise((resolve, reject) => {
-        const deleteQuery = 'DELETE FROM empleado WHERE numrut_emp = ?';
-        connection.query(deleteQuery, [rut], (error, results) => {
+        const deleteQuery = 'DELETE FROM empleado WHERE numrut_emp = ? AND dvrut_emp = ?';
+        connection.query(deleteQuery, [rut, verificador], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta de eliminación:', error);
                 reject(error);
