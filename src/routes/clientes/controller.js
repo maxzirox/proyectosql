@@ -20,8 +20,8 @@ module.exports.ClientesController = {
     
     obtenerPorRut: async (req, res) => {
         try {
-            const { params: { rut }, } = req;
-            const cliente = await ClientesServices.obtenerRut(rut)
+            const { params: { rut, digito }, } = req;
+            const cliente = await ClientesServices.obtenerRut(rut, digito)
             Response.succes(res, 200, 'Lista de clientes', cliente)
             
         } catch (error) {
@@ -63,8 +63,8 @@ module.exports.ClientesController = {
     },
     removerCliente: async (req, res) =>{
         try {
-            const { body, params: { rut } } = req;
-                await ClientesServices.eliminarCliente(rut)
+            const { body, params: { rut, digito } } = req;
+                await ClientesServices.eliminarCliente(rut, digito)
                 Response.succes(res, 200, `Cliente ${rut} elimnado`)
         } catch (error) {
             debug(error);

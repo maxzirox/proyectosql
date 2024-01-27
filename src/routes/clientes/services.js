@@ -14,9 +14,10 @@ const obtenerTodos = () => {
     });
 };
 
-const obtenerRut = (rut) => {
+const obtenerRut = (rut, digito) => {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM cliente WHERE numrut_cli = ${rut}`, (error, results) => {
+        const  query = `SELECT * FROM cliente WHERE numrut_cli = ? and dvrut_cli = ?`
+        connection.query(query, [rut, digito], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta:', error);
                 reject(error);
@@ -58,10 +59,10 @@ const modificarCliente = (rut, cliente) => {
     });
 };
 
-const eliminarCliente = (rut) => {
+const eliminarCliente = (rut, digito) => {
     return new Promise((resolve, reject) => {
-        const deleteQuery = 'DELETE FROM cliente WHERE numrut_cli = ?';
-        connection.query(deleteQuery, [rut], (error, results) => {
+        const deleteQuery = 'DELETE FROM cliente WHERE numrut_cli = ? AND dvrut_cli = ?';
+        connection.query(deleteQuery, [rut, digito], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta de eliminación:', error);
                 reject(error);
