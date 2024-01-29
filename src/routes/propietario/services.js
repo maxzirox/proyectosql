@@ -3,7 +3,7 @@ const debug = require('debug')('app:users-controller');
 
 const obtenerTodos = () => {
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM propiedad', (error, results) => {
+        connection.query('SELECT * FROM propietario', (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta:', error);
                 reject(error);
@@ -16,7 +16,7 @@ const obtenerTodos = () => {
 
 const obtenerNumPropiedad = (nro_propiedad) => {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM propiedad WHERE nro_propiedad = ?`, [nro_propiedad], (error, results) => {
+        connection.query(`SELECT * FROM propietario WHERE nro_propiedad = ?`, [nro_propiedad], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta:', error);
                 reject(error);
@@ -27,10 +27,10 @@ const obtenerNumPropiedad = (nro_propiedad) => {
     });
 };
 
-const agregarPropiedad = (propiedad) => {
+const agregarPropietario = (propiedad) => {
     return new Promise((resolve, reject) => {
         //console.log('cliente desde services: ', cliente)
-        connection.query('INSERT INTO propiedad SET ?', [propiedad], (error, results) => {
+        connection.query('INSERT INTO propietario SET ?', [propiedad], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta:', error);
                 reject(error);
@@ -41,10 +41,10 @@ const agregarPropiedad = (propiedad) => {
     });
 };
 
-const modificarPropiedad = (nro_propiedad, propiedad) => {
+const modificarPropietario= (nro_propiedad, propiedad) => {
     return new Promise((resolve, reject) => {
         // Crear una cadena de actualización basada en los nuevos datos proporcionados
-        const updateQuery = 'UPDATE propiedad SET ? WHERE numrut_cli = ?';
+        const updateQuery = 'UPDATE propietario SET ? WHERE numrut_cli = ?';
 
         // Realizar la consulta de actualización
         connection.query(updateQuery, [propiedad, nro_propiedad], (error, results) => {
@@ -58,9 +58,9 @@ const modificarPropiedad = (nro_propiedad, propiedad) => {
     });
 };
 
-const eliminarPropiedad = (nro_propiedad) => {
+const eliminarPropietario = (nro_propiedad) => {
     return new Promise((resolve, reject) => {
-        const deleteQuery = 'DELETE FROM rpopiedad WHERE nro_propiedad = ?';
+        const deleteQuery = 'DELETE FROM propietario WHERE nro_propiedad = ?';
         connection.query(deleteQuery, [nro_propiedad], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta de eliminación:', error);
@@ -75,7 +75,7 @@ const eliminarPropiedad = (nro_propiedad) => {
 module.exports.PropiedadesServices = {
     obtenerTodos,
     obtenerNumPropiedad,
-    agregarPropiedad,
-    modificarPropiedad,
-    eliminarPropiedad
+    agregarPropietario,
+    modificarPropietario,
+    eliminarPropietario
 };
