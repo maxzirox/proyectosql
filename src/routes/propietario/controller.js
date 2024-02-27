@@ -1,15 +1,15 @@
 const createError = require('http-errors')
-const { PropietarioServices } = require('./services')
+const { PropietariosServices } = require('./services')
 const debug = require('debug')('app:users-controller');
 const { Response } = require('../../common/response');
 
 //error en controlador para mostrar el obj con los usuarios.
 
-module.exports.PropiedadesController = {
+module.exports.propietarioController = {
     obtenerPropietarios: async (req, res) => {
         try {
-            const  propiedades = await PropietariosServices.obtenerTodos()
-            Response.succes(res, 200, 'Lista de propiedades',  propiedades)
+            const  propietarios = await PropietariosServices.obtenerTodos()
+            Response.succes(res, 200, 'Lista de propietarios',  propietarios)
             
         } catch (error) {
             debug(error);
@@ -18,11 +18,11 @@ module.exports.PropiedadesController = {
 
     },
     
-    obtenerPorNumero: async (req, res) => {
+    obtenerPorRut: async (req, res) => {
         try {
-            const { params: { nro_propiedad }, } = req;
-            const propiedades = await PropitariosServices.obtenerNumPropiedad(nro_propiedad)
-            Response.succes(res, 200, 'Propiedad seleccionada', propiedades)
+            const { params: { numrut_prop, dvrut_prop }, } = req;
+            const propietario = await PropietariosServices.obtenerNumPropiedad(numrut_prop, dvrut_prop)
+            Response.succes(res, 200, 'Propiedatario seleccionada', propietario)
             
         } catch (error) {
             debug(error);
@@ -37,7 +37,7 @@ module.exports.PropiedadesController = {
                 Response.error(res, new createError.BadRequest());
             } else{
                 await PropitarioServices.agregarPropiedad(body);
-                Response.succes(res, 201, 'Propiedad agregada', body);
+                Response.succes(res, 201, 'Propietario agregada', body);
             }
             
         } catch (error) {
@@ -52,9 +52,9 @@ module.exports.PropiedadesController = {
             if (!body || Object.keys(body).length === 0) {
                 Response.error(res, new createError.BadRequest());
             } else{
-                const { body, params: { nro_propiedad } } = req;
-                const updateById = await PropietarioServices.modificarPropiedad(nro_propiedad, body)
-                Response.succes(res, 200, `Propiedad ${nro_propiedad} modificada`, updateById)
+                const { body, params: { numrut_prop, dvrut_prop } } = req;
+                const updateById = await PropietarioServices.modificarPropiedad(numrut_prop, dvrut_prop, body)
+                Response.succes(res, 200, `Propietario ${numrut_prop} modificada`, updateById)
             }
         } catch (error) {
             debug(error);
@@ -63,9 +63,9 @@ module.exports.PropiedadesController = {
     },
     removerPropietario: async (req, res) =>{
         try {
-            const { body, params: { nro_propiedad } } = req;
-                await PropietarioServices.eliminarPropiedad(rut)
-                Response.succes(res, 200, `Propiedad ${nro_propiedad} elimnada`)
+            const { body, params: { numrut_prop, dvrut_prop } } = req;
+                await PropietarioServices.eliminarPropiedad(rut, dvrut_prop)
+                Response.succes(res, 200, `Propietario ${numrut_prop} elimnada`)
         } catch (error) {
             debug(error);
             Response.error(res);

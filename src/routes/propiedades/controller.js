@@ -64,7 +64,7 @@ module.exports.PropiedadesController = {
     removerPropiedad: async (req, res) =>{
         try {
             const { body, params: { nro_propiedad } } = req;
-                await PropiedadesServices.eliminarPropiedad(rut)
+                await PropiedadesServices.eliminarPropiedad(nro_propiedad)
                 Response.succes(res, 200, `Propiedad ${nro_propiedad} elimnada`)
         } catch (error) {
             debug(error);

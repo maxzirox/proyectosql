@@ -14,9 +14,9 @@ const obtenerTodos = () => {
     });
 };
 
-const obtenerNumPropiedad = (nro_propiedad) => {
+const obtenerNumPropiedad = (numrut_prop, dvrut_prop) => {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM propietario WHERE nro_propiedad = ?`, [nro_propiedad], (error, results) => {
+        connection.query(`SELECT * FROM propietario WHERE nro_propiedad = ? AND dcrut_prop = ?`, [numrut_prop, dvrut_prop], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta:', error);
                 reject(error);
@@ -47,7 +47,7 @@ const modificarPropietario= (nro_propiedad, propiedad) => {
         const updateQuery = 'UPDATE propietario SET ? WHERE numrut_cli = ?';
 
         // Realizar la consulta de actualización
-        connection.query(updateQuery, [propiedad, nro_propiedad], (error, results) => {
+        connection.query(updateQuery, [numrut_prop, dvrut_prop], (error, results) => {
             if (error) {
                 console.error('Error al realizar la consulta de actualización:', error);
                 reject(error);
